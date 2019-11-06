@@ -5,6 +5,7 @@ import {saveInterviewer} from 'store/interview/action'
 import {Container, Row, Col, Form, Button} from 'react-bootstrap'
 import Header from 'components/header/header.jsx'
 import api from 'api/api.js'
+import _common from 'utils/_common'
 import './login.scss'
 
 class InterviewLogin extends React.Component {
@@ -40,8 +41,15 @@ class InterviewLogin extends React.Component {
     toLogin = async e => { // 点击登录
         try {
             const data = this.state.formdata
-
-            this.props.saveInterviewer(data)
+            console.log(data)
+            let formdata = _common.getFormdata(data)
+            let result = await api.interviewLogin({data: formdata})
+            if (result) {
+                this.props.saveInterviewer(data)
+                this.props.history.push('/interview/home')
+            } else {
+                alert('登录失败')
+            }
         } catch (err) {
             console.log(err)
         }
@@ -68,7 +76,7 @@ class InterviewLogin extends React.Component {
                                 <Form.Control 
                                     as="select" 
                                     id="input" 
-                                    data-type="d_name"
+                                    data-type="department"
                                     onChange={this.handleChange}
                                 >
                                     {
@@ -80,7 +88,7 @@ class InterviewLogin extends React.Component {
                                 <Form.Control 
                                     as="select" 
                                     id="input" 
-                                    data-type="h_group"
+                                    data-type="group"
                                     onChange={this.handleChange}
                                 >
                                     {

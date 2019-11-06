@@ -24,4 +24,36 @@ export default class Server {
             })
         })
     }
+    async get (url, params = {}, errTips) { // get请求
+        try {
+            let result = await this.axios('get', url)
+            if (result && (result.data instanceof Object) && result.code === 1) {
+                return result.data
+            } 
+            let err = {
+                tip: errTips,
+                response: result,
+                data: params
+            }
+            throw err
+        } catch (err) {
+            throw err
+        }
+    }
+    async post (url, params = {}, errTips) { // post请求
+        try {
+            let result = await this.axios('post', url, params)
+            if (result && result.code === 1) {
+                return result
+            }
+            let err = {
+                tip: errTips,
+                response: result,
+                data: params
+            }
+            throw err
+        } catch (err) {
+            throw err
+        }
+    }
 }

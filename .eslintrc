@@ -75,6 +75,8 @@
     "quotes":"off",
     "max-len":"off",
     "no-alert":"off",
-    "react/no-unused-state":"off"
+    "react/no-unused-state":"off",
+    "guard-for-in":"off",
+    "no-restricted-syntax":"off"
   }
 }

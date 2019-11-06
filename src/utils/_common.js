@@ -15,9 +15,9 @@ class Common {
     getFormdata (data) { // 获取formdata
         let formdata = new FormData()
         const _formdata = data
-        Object.keys(_formdata).forEach((key) => {
+        for (let key in _formdata) {
             formdata.append(key, _formdata[key])
-        })
+        }
         return formdata
     }
 }
