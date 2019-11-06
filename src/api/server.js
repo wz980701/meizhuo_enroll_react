@@ -1,14 +1,15 @@
 import axios from 'axios'
-import envconfig from '@/env/config'
+import baseURL from '@/env/config.js'
 
 export default class Server {
     axios(method, url, params) {
         return new Promise((resolve, reject) => {
             if (typeof params !== 'object') params = {}
-            const _option = {
+            let _option = params
+            _option = {
                 method,
                 url,
-                baseURL: envconfig.baseURL,
+                baseURL,
                 timeout: 30000,
                 params: null,
                 data: null,

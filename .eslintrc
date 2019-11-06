@@ -63,6 +63,18 @@
     "import/first": "off",
     "no-shadow": "off",
     "import/no-mutable-exports": "off",
-    "arrow-body-style":"off"
+    "arrow-body-style":"off",
+    "space-before-function-paren":"off",
+    "prefer-destructuring":"off",
+    "no-trailing-spaces":"off",
+    "no-console":"off",
+    "quote-props":"off",
+    "prefer-const":"off",
+    "import/prefer-default-export":"off",
+    "no-unused-state":"off",
+    "quotes":"off",
+    "max-len":"off",
+    "no-alert":"off",
+    "react/no-unused-state":"off"
   }
 }

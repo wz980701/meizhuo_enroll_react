@@ -1,0 +1,32 @@
+@import 'style/base.scss';
+
+.apply_form {
+    margin-top: 40px;
+}
+
+.error {
+    box-shadow: 0px 0px 4px red !important;
+}
+
+.errorTips {
+    position: relative;
+}
+
+.errorTips[data-tips]::after {
+    content: attr(data-tips);
+    color: red;
+    font-size: 14px;
+    position: absolute;
+    top: 10px;
+    left: -150px;
+    animation: move 1s linear alternate both;
+}
+
+@keyframes move {
+    from {
+        opacity: 0;
+    } to {
+        opacity: 1;
+    }
+}
+

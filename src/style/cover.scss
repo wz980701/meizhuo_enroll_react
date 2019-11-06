@@ -1,0 +1,15 @@
+@import 'style/base.scss';
+
+.btn-apply {
+    background-color: $apply-bgcolor !important;
+    border-color: $apply-bgcolor !important;
+}
+
+.btn-interview {
+    background-color: $interview-bgcolor !important;
+    border-color: $interview-bgcolor !important;
+}
+
+#input {
+    border: none;
+}

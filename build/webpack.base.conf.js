@@ -20,7 +20,9 @@ module.exports = {
       'pages': resolve('src/pages'),
       'components': resolve('src/components'),
       'style': resolve('src/style'),
-      'store': resolve('src/store')
+      'store': resolve('src/store'),
+      'utils': resolve('src/utils'),
+      'api': resolve('src/api')
     }
   },
   performance: {

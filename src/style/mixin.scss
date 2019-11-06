@@ -1,0 +1,103 @@
+//border圆角
+@mixin borderRadius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    -o-border-radius: $radius;
+    border-radius: $radius;
+}
+//定位上下左右居中
+@mixin center {
+	position: absolute;
+	top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+//定位上下居中
+@mixin ct {
+	position: absolute;
+	top: 50%;
+    transform: translateY(-50%);
+}
+
+//定位左右居中
+@mixin cl {
+	position: absolute;
+	left: 50%;
+    transform: translateX(-50%);
+}
+
+//宽高
+@mixin wh($width, $height){
+	width: $width;
+	height: $height;
+}
+
+//字体大小、行高、字体
+@mixin font($size, $line-height, $family: 'Microsoft YaHei') {
+	font: #{$size}/#{$line-height} $family;
+}
+
+//字体大小，颜色
+@mixin sc($size, $color){
+	font-size: $size;
+	color: $color;
+}
+
+//flex 布局和 子元素 对其方式
+@mixin fj($type: space-between){
+	display: flex;
+	justify-content: $type;
+
+}
+
+//字间间距
+@mixin ls($width: .01rem) {
+	letter-spacing: $width;
+}
+
+//图片绝对定位
+@mixin pi ($left, $top) {
+	position: absolute;
+	left: $left;
+	top: $top;
+}
+
+//高度与行高统一
+@mixin hl ($height) {
+	height: $height;
+	line-height: $height;
+}
+
+//改变placeholder颜色
+@mixin ph ($color) {
+	:-ms-input-placeholder {
+		color: $color;
+	}
+	&::-webkit-input-placeholder {
+		color: $color;
+	}
+	:moz-placeholder {
+		color: $color;
+	}
+}
+
+//加1px边框
+@mixin border-1px ($color) {
+	border: 1px solid $color;
+}
+
+//生成省略号
+@mixin tw {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+//水平居中
+@mixin wm ($width) {
+	width: $width;
+	margin: 0 auto;
+}
+

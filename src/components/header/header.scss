@@ -1,0 +1,18 @@
+@import 'style/base.scss';
+@import 'style/mixin.scss';
+
+.header {
+    width: 100%;
+    @include hl(50px);
+    @include sc(18px, $text-color);
+}
+
+.apply {
+    background-color: $apply-bgcolor;
+    text-align: center;
+}
+
+.interview {
+    background-color: $interview-bgcolor;
+    text-align: center;
+}
