@@ -41,7 +41,6 @@ class InterviewLogin extends React.Component {
     toLogin = async e => { // 点击登录
         try {
             const data = this.state.formdata
-            console.log(data)
             let formdata = _common.getFormdata(data)
             let result = await api.interviewLogin({data: formdata})
             if (result) {
@@ -69,8 +68,8 @@ class InterviewLogin extends React.Component {
                         面试官认证
                     </Header>
                 </Row>
-                <Row className="justify-content-center login_form">
-                    <Col md={4}>
+                <Row className="justify-content-center">
+                    <Col md={4} className="login_form">
                         <Form>
                             <Form.Group controlId="department">
                                 <Form.Control 

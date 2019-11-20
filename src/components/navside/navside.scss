@@ -1,0 +1,33 @@
+@import 'style/mixin.scss';
+@import 'style/base.scss';
+
+.navSide {
+    max-width: 300px;
+    min-width: 300px;
+    min-height: 100%;
+    flex-grow: 0;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12);
+    .nav_brand {
+        @include wh(100%, 200px);
+        background-color: $apply-bgcolor;
+    }
+    .nav_list {
+        .nav_item {
+            .nav_link {
+                @include fj;
+                @include hl(45px);
+                padding: 0 50px;
+                color: black;
+                box-sizing: border-box;
+                transition: all .5s;
+                &:hover {
+                    background-color: #f2f3f4;
+                }
+            }
+        }
+    }
+}
+
+.slide_list {
+    display: none;
+}

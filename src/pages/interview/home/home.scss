@@ -1,0 +1,40 @@
+@import 'style/mixin.scss';
+@import 'style/base.scss';
+
+.showDataBox {
+    margin-top: 80px;
+    display: border-box;
+    padding: 0 20px;
+    @include border-1px($border-color);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12);
+    .thead {
+        @include sc(14px, #757575);
+        padding: 18px 0;
+        border-bottom: 1px solid $border-color;
+    }
+    .tbody {
+        padding: 20px 0;
+        border-bottom: 1px solid $border-color;
+        &:last-child {
+            border-bottom: none;
+        }
+        transition: all .5s;
+        &:hover {
+            background-color: #f2f3f4;
+        }
+    }
+}
+
+.btnGroup {
+    margin-top: 30px;
+    .exitBtn {
+        background-color: $exit-bgcolor !important;
+        border-color: $exit-bgcolor !important;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12);
+    }
+    .nextBtn {
+        background-color: $interview-bgcolor !important;
+        border-color: $interview-bgcolor !important;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12);
+    }
+}

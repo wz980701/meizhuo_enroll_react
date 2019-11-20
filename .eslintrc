@@ -77,6 +77,10 @@
     "no-alert":"off",
     "react/no-unused-state":"off",
     "guard-for-in":"off",
-    "no-restricted-syntax":"off"
+    "no-restricted-syntax":"off",
+    "react/jsx-curly-brace-presence":"off",
+    "jsx-a11y/no-noninteractive-element-interactions":"off",
+    "prefer-template":"off",
+    "function-paren-newline":"off"
   }
 }

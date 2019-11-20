@@ -20,6 +20,22 @@ class Common {
         }
         return formdata
     }
+    setSessionStore (key, value) { //设置sessionstorage
+        sessionStorage.setItem(key, value)
+    }
+    getSessionStore (key) { //读取sessionstorage
+        return sessionStorage.getItem(key)
+    }
+    timestampToExpectedTime (timestamp) { //转化预计到达时间
+        let date = new Date(timestamp * 1000)
+        let Y = date.getFullYear() + '-'
+        let M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-'
+        let D = date.getDate() + ' '
+        let h = date.getHours() + ':'
+        let m = date.getMinutes() + ':'
+        let s = date.getSeconds()
+        return Y + M + D + h + m + s
+    }
 }
 
 export default new Common()

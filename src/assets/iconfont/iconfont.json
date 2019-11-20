@@ -1,0 +1,16 @@
+{
+  "id": "1500096",
+  "name": "meizhuo_enroll",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "面试系统",
+  "glyphs": [
+    {
+      "icon_id": "4485654",
+      "name": "更多",
+      "font_class": "more",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    }
+  ]
+}

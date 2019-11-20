@@ -26,9 +26,12 @@ export default class Server {
     }
     async get (url, params = {}, errTips) { // get请求
         try {
-            let result = await this.axios('get', url)
-            if (result && (result.data instanceof Object) && result.code === 1) {
-                return result.data
+            let result = await this.axios('get', url, params)
+            if (result && result.code === 1) {
+                if (result.data) {
+                    return result.data
+                } 
+                return result.message
             } 
             let err = {
                 tip: errTips,
