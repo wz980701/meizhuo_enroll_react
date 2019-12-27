@@ -16,6 +16,12 @@
         .apply_sum {
             margin-top: 10px;
         }
+        .btn_result, .btn_modify {
+            font-size: 14px;
+        }
+        .btn_modify {
+            margin-left: 20px;
+        }
     }
     .list_content {
         padding: 20px;
@@ -37,10 +43,18 @@
             &:hover {
                 background-color: #f2f3f4;
             }
-            #detail_btn {
+            .detail_btn {
                 background-color: $apply-bgcolor;
                 border-color: $apply-bgcolor;
                 width: 80%;
+            }
+            .user_pass {
+                font-size: 15px;
+                color: #757575;
+            }
+            .pass_btn {
+                margin-left: 30px;
+                font-size: 14px;
             }
         }
     }

@@ -2,7 +2,7 @@ import React from 'react'
 import _common from 'utils/_common.js'
 import {Link} from 'react-router-dom'
 import './navside.scss'
-
+import imgURL from '../../assets/mz.png'
 
 class NavSide extends React.Component {
     constructor (props) {
@@ -13,7 +13,14 @@ class NavSide extends React.Component {
     render () {
         return (
             <div className="navSide">
-                <div className="nav_brand" />
+                <div className="nav_brand">
+                    {/* <img
+                        className="nav_logo"
+                        src={imgURL}
+                        alt="logo"
+                    /> */}
+                    <p className="nav_text">hr,欢迎您</p>
+                </div>
                 <ul className="nav_list">
                     <li className="nav_item">
                         <Link className="nav_link" to="/auth/applylist">

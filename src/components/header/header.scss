@@ -23,5 +23,5 @@
 
 .auth_home {
     background-color: $apply-bgcolor;
-    text-align: center;
+    @include fj;
 }

@@ -1,0 +1,29 @@
+@import 'style/base.scss';
+@import 'style/mixin.scss';
+
+.head {
+    color: $text-color;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    color: black;
+    // background-color: $apply-bgcolor !important;
+    // border: $apply-bgcolor !important;
+}
+.body {
+    text-align: center;
+}
+
+.confirm_center_btn {
+    @include wm(20%);
+}
+
+// .apply {
+//     background-color: $apply-bgcolor !important;
+//     border: $apply-bgcolor !important;
+// }
+
+// .interview {
+//     background-color: $interview-bgcolor !important;
+//     border: $interview-bgcolor !important;
+// }

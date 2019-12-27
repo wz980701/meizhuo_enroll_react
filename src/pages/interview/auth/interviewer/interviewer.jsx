@@ -1,13 +1,15 @@
 import React from 'react'
 import {Container, Row, Col, Button} from 'react-bootstrap'
 import api from 'api/api.js'
+import {RES_OK} from 'env/constant.js'
 import './interviewer.scss'
 
 class Interviewer extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
-            list: []
+            list: [],
+            isShow: false
         }
     }
     componentDidMount () {
@@ -18,6 +20,25 @@ class Interviewer extends React.Component {
             const listData = await api.getInterviewList()
             const list = listData.data
             if (list.length > 0) {
+                this.setState({
+                    list
+                })
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    async toLogout (index, group, department) { // 面试官退出登录
+        try {
+            const isLogout = await api.interviewLogout({
+                params: {
+                    group,
+                    department
+                }
+            })
+            if (isLogout.code === RES_OK) {
+                let list = this.state.list
+                list.splice(index, 1)
                 this.setState({
                     list
                 })
@@ -42,7 +63,8 @@ class Interviewer extends React.Component {
                         </Col>
                         <Col md={4}>
                             <Button
-                                id="logout_btn"
+                                className="btn-exit logout_btn"
+                                onClick={() => { this.toLogout(index, item.h_group, item.h_department) }}
                             >
                                 退出登录
                             </Button>

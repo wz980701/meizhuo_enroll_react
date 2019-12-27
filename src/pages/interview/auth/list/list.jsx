@@ -4,12 +4,15 @@ import _common from 'utils/_common.js'
 import Search from 'components/search/search.jsx'
 import {Link} from 'react-router-dom'
 import {Container, Row, Col, Form, Button, Pagination} from 'react-bootstrap'
+import {RES_OK, RES_ERR} from 'env/constant.js'
 import './list.scss'
 
 class List extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
+            type: 'detail',
+            type_tips: '修改面试状态',
             user_state: '',
             list: [],
             department: '',
@@ -24,19 +27,26 @@ class List extends React.Component {
     componentDidMount () {
         this.initData()
     }
-    async initData () {
-        if (this.props.state === 'interview') { // 如果props的state为已面试，则改变state的user_state数据
-            this.state.user_state = '已面试'
-        }
-        const data = await api.getUserList({
-            params: {
-                state: this.state.user_state
+    initData = async () => {
+        try {
+            if (this.props.state === 'interview') { // 如果props的state为已面试，则改变state的user_state数据
+                this.state.user_state = '已面试'
             }
-        })
-        this.setState({
-            list: data.user_list,
-            sum: data.sum
-        })
+            const data = await api.getUserList({
+                params: {
+                    state: this.state.user_state
+                }
+            })
+            this.setState({
+                list: data.user_list,
+                sum: data.sum
+            })
+        } catch (err) {
+            const code = err.response.code
+            if (code === RES_ERR) {
+                this.props.history.push('/auth/login')
+            }
+        }
     }
     handleSelectChange = async e => { // 不用验证值的表单修改formdata
         const value = e.target.value
@@ -78,6 +88,51 @@ class List extends React.Component {
     saveUserId (id) { // 保存用户id
         _common.setSessionStore("user_id", id)
     }
+    toSearch = async (content) => { // 搜索获取列表
+        try {
+            if (content.length === 0 || this.props.state === 'interview') { // 如果搜索内容为空
+                this.initData()
+            } else {
+                const data = await api.getSearch({
+                    params: {
+                        val: content
+                    }
+                })
+                this.setState({
+                    list: data.data,
+                    sum: data.sum
+                })
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    toModify = async () => { // 点击切换修改状态UI
+        this.setState({
+            type: this.state.type === 'detail' ? 'modify' : 'detail',
+            type_tips: this.state.type_tips === '修改面试状态' ? '取消修改' : '修改面试状态'
+        })
+    }
+    changePassState = async (index, state) => { // 修改面试者状态
+        try {
+            let id = this.state.list[index].id
+            const data = await api.getChangePass({
+                params: {
+                    id,
+                    state
+                }
+            })
+            if (data) {
+                let list = this.state.list
+                list[index].s_pass = state
+                this.setState({
+                    list
+                })
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
     render () {
         const multiOption = (list) => { // 遍历list获取option
             return list.map((item, index) => {
@@ -87,7 +142,8 @@ class List extends React.Component {
             })
         }
         let items = []
-        for (let number = 1; number <= this.state.page; number++) { // 获取分页器
+        let that = this
+        for (let number = 1; number <= Math.ceil(this.state.sum / this.state.limit); number++) { // 获取分页器
             items.push(
                 <Pagination.Item 
                     key={number} 
@@ -123,13 +179,33 @@ class List extends React.Component {
                             {_common.timestampToExpectedTime(item.s_createtime)}
                         </Col>
                         <Col md={2}>
-                            <Link to="/auth/detail" onClick={(e) => { this.saveUserId(item.id) }}>
-                                <Button
-                                    id="detail_btn"
-                                >
-                                    详情
-                                </Button>
-                            </Link>
+                            {
+                                this.state.type === 'detail' ?
+                                    <Link to="/auth/detail" onClick={(e) => { this.saveUserId(item.id) }}>
+                                        <Button
+                                            className="btn-apply detail_btn"
+                                        >
+                                            详情
+                                        </Button>
+                                    </Link> 
+                                    :
+                                    <div>
+                                        <span className="user_pass">{item.s_pass}</span>
+                                        {
+                                            item.s_pass === '未通过' ?
+                                                <Button 
+                                                    variant="outline-success"
+                                                    className="pass_btn"
+                                                    onClick={(e) => { that.changePassState(index, '通过') }}
+                                                >通过</Button> :
+                                                <Button 
+                                                    variant="outline-danger"
+                                                    className="pass_btn"
+                                                    onClick={(e) => { that.changePassState(index, '未通过') }}
+                                                >未通过</Button>
+                                        }
+                                    </div>
+                            }
                         </Col>
                     </Row>
                 )
@@ -138,24 +214,44 @@ class List extends React.Component {
         return (
             <Container>
                 <Row>
-                    <Search />
+                    <Search onSearch={this.toSearch} type="search" />
                 </Row>
                 <Row className="list_box">
                     <Container className="list_container">
                         <Row className="list_head">
-                            <div className="list_select">
-                                <Form.Group controlId="department">
-                                    <Form.Control 
-                                        as="select" 
-                                        id="input"
-                                        data-type="s_department" 
-                                        onChange={this.handleSelectChange}
-                                    >
-                                        {
-                                            multiOption(this.state.department_list)
-                                        }
-                                    </Form.Control>
-                                </Form.Group>
+                            <div>
+                                <div className="list_select">
+                                    <Form.Group controlId="department">
+                                        <Form.Control 
+                                            as="select" 
+                                            id="input"
+                                            data-type="s_department" 
+                                            onChange={this.handleSelectChange}
+                                        >
+                                            {
+                                                multiOption(this.state.department_list)
+                                            }
+                                        </Form.Control>
+                                    </Form.Group>
+                                </div>
+                                {
+                                    this.props.state === 'interview' ?
+                                        <div>
+                                            <Link to="/result/manage">
+                                                <Button
+                                                    className="btn-apply btn_result"
+                                                >编写面试结果</Button>
+                                            </Link>
+                                            <Button 
+                                                className="btn-exit btn_modify"
+                                                onClick={this.toModify}
+                                            >
+                                                {this.state.type_tips}
+                                            </Button>
+                                        </div>
+                                        :
+                                        <div />
+                                }
                             </div>
                             <p className="apply_sum">
                                 总报名人次：{this.state.sum}人次

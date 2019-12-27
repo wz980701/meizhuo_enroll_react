@@ -6,6 +6,20 @@
         flex-grow: 1;
         width: 100%;
         position: relative;
+        .auth_home {
+            padding: 0 30px;
+            .left_head {
+                display: flex;
+                p {
+                    margin-left: 10px;
+                }
+            }
+            .right_head {
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
     }
 }
 

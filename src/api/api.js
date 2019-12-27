@@ -34,6 +34,30 @@ class API extends Server {
     async getInterviewList (params = {}) { // 获取面试官列表
         return this.get('/interview/list', params, '获取面试官列表失败')
     }
+    async authLogout (params = {}) { // HR登出
+        return this.get('/auth/logout', params, 'HR退出登录失败')
+    }
+    async getSignList (params = {}) { // 获取签到列表
+        return this.get('/user/sign/list', params, '获取签到列表失败')
+    }
+    async toSign (params = {}) { // 签到
+        return this.post('/user/sign', params, '签到失败')
+    }
+    async getSignDel (params = {}) { // 删除签到者
+        return this.get('/user/sign/del', params, '删除签到者失败')
+    }
+    async getSearch (params = {}) { // 搜索获取列表
+        return this.get('/user/search', params, '搜索失败')
+    }
+    async getChangePass (params = {}) { // 修改面试状态
+        return this.get('/user/passState', params, '修改状态失败')
+    }
+    async setResult (params = {}) { // 提交面试结果
+        return this.post('/user/setResult', params, '提交面试结果失败')
+    }
+    async getResult (params = {}) { // 获取面试结果
+        return this.get('/user/getResult', params, '获取面试结果失败')
+    }
 }
 
 export default new API()

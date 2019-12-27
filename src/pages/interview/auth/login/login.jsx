@@ -1,6 +1,7 @@
 import React from 'react'
 import {Container, Row, Col, Form, Button} from 'react-bootstrap'
 import Header from 'components/header/header.jsx'
+import PopUp from 'components/popup/popup.jsx'
 import api from 'api/api.js'
 import _common from 'utils/_common'
 import './login.scss'
@@ -10,6 +11,8 @@ class AuthLogin extends React.Component {
         super(props)
         this.state = {
             formdata: {
+                isShow: false,
+                tip: '',
                 username: '',
                 password: ''
             }
@@ -24,11 +27,26 @@ class AuthLogin extends React.Component {
         try {
             const data = _common.getFormdata(this.state.formdata)
             const res = await api.authLogin({data})
-            alert(res.message)
-            this.props.history.push('/auth/home')
+            if (res) {
+                this.setState({
+                    isShow: true,
+                    tips: '登录成功'
+                })
+            } else {
+                this.setState({
+                    isShow: true,
+                    tips: '登录失败'
+                })
+            }
         } catch (err) {
             console.log(err)
         }
+    }
+    onClose = async () => {
+        this.setState({
+            isShow: false
+        })
+        this.props.history.push('/auth/home')
     }
     render () {
         return (
@@ -54,7 +72,7 @@ class AuthLogin extends React.Component {
                             <Form.Group controlId="password">
                                 <Form.Control
                                     id="input"
-                                    type="text"
+                                    type="password"
                                     placeholder="密码"
                                     data-type="password"
                                     onChange={this.changeValue}
@@ -67,6 +85,12 @@ class AuthLogin extends React.Component {
                         </Form>
                     </Col>
                 </Row>
+                <PopUp 
+                    PopLight="true"
+                    PopTip={this.state.tips}
+                    PopStatus={this.state.isShow}
+                    onClose={this.onClose}
+                />
             </Container>
         )
     }

@@ -23,7 +23,8 @@ module.exports = {
       'store': resolve('src/store'),
       'utils': resolve('src/utils'),
       'api': resolve('src/api'),
-      'assets': resolve('src/assets')
+      'assets': resolve('src/assets'),
+      'env': resolve('src/env')
     }
   },
   performance: {

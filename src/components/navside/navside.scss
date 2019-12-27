@@ -10,6 +10,20 @@
     .nav_brand {
         @include wh(100%, 200px);
         background-color: $apply-bgcolor;
+        position: relative;
+        text-align: center;
+        .nav_logo {
+            top: 70px;
+            @include cl;
+        }
+        .nav_text {
+            // margin-top: 50px;
+            position: absolute;
+            @include cl;
+            top: 70px;
+            font-size: 20px;
+            color: white;
+        }
     }
     .nav_list {
         .nav_item {

@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Container, Row, Col, Button} from 'react-bootstrap'
 import Header from 'components/header/header.jsx'
+import PopUp from 'components/popup/popup.jsx'
 import api from 'api/api.js'
 import './home.scss'
 
@@ -24,7 +25,10 @@ class InterviewHome extends React.Component {
                 {field: 's_intro', col: 9}
             ],
             interviewer_data: {}, // 面试者信息
-            id: '' // 学号
+            id: '', // 学号
+            isShow: false,
+            tips: '',
+            isLogout: false
         }
     }
     componentDidMount () {
@@ -43,14 +47,21 @@ class InterviewHome extends React.Component {
     }
     toLogout = async e => {
         try {
+            let params = {
+                department: this.state.department,
+                group: this.state.group
+            }
+            if (JSON.stringify(this.state.interviewer_data) !== '{}') { // 如果不为空，则传id
+                this.setState({
+                    tips: '还有面试者在面试噢，确定要退出登录吗？',
+                    isShow: true
+                })
+                return
+            }
             const result = await api.interviewLogout({
-                params: {
-                    department: this.state.department,
-                    group: this.state.group
-                }
+                params
             })
             if (result) { // 如果成功，则弹出信息，返回登录页
-                alert(result)
                 this.props.history.push('/interview/login')
             }
         } catch (err) {
@@ -67,6 +78,24 @@ class InterviewHome extends React.Component {
             id: res.s_id,
             interviewer_data: {...res}
         })
+    }
+    onClose = async e => {
+        this.setState({
+            isShow: false
+        })
+    }
+    onConfirm = async e => {
+        let params = {
+            department: this.state.department,
+            group: this.state.group
+        }
+        params.id = this.state.interviewer_data.s_id
+        const result = await api.interviewLogout({
+            params
+        })
+        if (result) { // 如果成功，则弹出信息，返回登录页
+            this.props.history.push('/interview/login')
+        }
     }
     render () {
         const tbody = (list) => {
@@ -146,6 +175,12 @@ class InterviewHome extends React.Component {
                         >下一个面试者</Button>
                     </Col>
                 </Row>
+                <PopUp
+                    PopTip={this.state.tips}
+                    PopStatus={this.state.isShow}
+                    onConfirm={this.onConfirm}
+                    onClose={this.onClose}
+                />
             </Container>
         )
     }

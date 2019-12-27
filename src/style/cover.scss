@@ -3,11 +3,28 @@
 .btn-apply {
     background-color: $apply-bgcolor !important;
     border-color: $apply-bgcolor !important;
+    transition: all 0.3s !important;
+    &:hover {
+        background-color: #2b3eaa !important;
+    }
 }
 
 .btn-interview {
     background-color: $interview-bgcolor !important;
     border-color: $interview-bgcolor !important;
+    transition: all 0.3s !important;
+    &:hover {
+        background-color: #b9194f !important;
+    }
+}
+
+.btn-exit {
+    background-color: $exit-bgcolor !important;
+    border-color: $exit-bgcolor !important;
+    transition: all 0.3s !important;
+    &:hover {
+        background-color: #e24b1d !important;
+    }
 }
 
 #input {
@@ -15,4 +32,14 @@
     border-bottom: 1px solid #f2f3f4;
     border-radius: none;
     box-shadow: none;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+    outline: none !important;  
+    box-shadow: none !important;        
 }

@@ -3,6 +3,8 @@ import _common from 'utils/_common.js'
 import './detail.scss'
 import {Container, Row, Col} from 'react-bootstrap'
 import api from 'api/api.js'
+import {RES_OK} from 'env/constant.js'
+
 
 class Detail extends React.Component {
     constructor (props) {
@@ -33,7 +35,7 @@ class Detail extends React.Component {
                     id
                 }
             })
-            if (data && JSON.stringify(data) !== '{}') {
+            if (data.code === RES_OK && JSON.stringify(data) !== '{}') {
                 this.setState({
                     user_data: data
                 })

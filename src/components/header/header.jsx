@@ -5,12 +5,12 @@ class Header extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
-            type: ''
+            // type: ''
         }
     }
-    componentDidMount () {
-        this.state.type = this.props
-    }
+    // componentDidMount () {
+    //     this.state.type = this.props
+    // }
     render () {
         const type = this.props.type
         return (
